@@ -1,14 +1,14 @@
 //
-//  NOVMessageBotttomView.m
+//  NOVMyheadView.m
 //  小说
 //
-//  Created by 李飞艳 on 2018/4/19.
+//  Created by 李飞艳 on 2018/5/8.
 //  Copyright © 2018年 李飞艳. All rights reserved.
 //
 
-#import "NOVMessageBotttomView.h"
+#import "NOVMyheadView.h"
 
-@implementation NOVMessageBotttomView
+@implementation NOVMyheadView
 
 /*
 // Only override drawRect: if you perform custom drawing.
