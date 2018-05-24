@@ -1,14 +1,14 @@
 //
-//  SJTopView.m
+//  NOVMystartView.m
 //  小说
 //
-//  Created by 李飞艳 on 2018/3/30.
+//  Created by 李飞艳 on 2018/5/22.
 //  Copyright © 2018年 李飞艳. All rights reserved.
 //
 
-#import "SJTopView.h"
+#import "NOVMystartView.h"
 
-@implementation SJTopView
+@implementation NOVMystartView
 
 /*
 // Only override drawRect: if you perform custom drawing.
