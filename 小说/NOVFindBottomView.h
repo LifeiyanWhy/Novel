@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
+#import "NOVFindTableViewCell.h"
 
 @interface NOVFindBottomView : UIView
+
+@property(nonatomic,strong) UITableView *tableView;
 
 @end

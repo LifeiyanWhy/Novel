@@ -10,4 +10,16 @@
 
 @interface NOVDataModel : NSObject
 
++(NOVDataModel *)shareInstance;
+
+-(void)updateToken:(NSString *)token refreshToken:(NSString *)refreshToken;
+
+-(NSString *)getToken;
+
+-(NSString *)getRefreshToken;
+
+-(void)updateFollowBookListWithArray:(NSMutableArray *)followBookList;
+//获取关注列表
+-(NSArray *)getFollowBookList;
+
 @end

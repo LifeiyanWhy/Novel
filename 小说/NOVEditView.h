@@ -10,4 +10,12 @@
 
 @interface NOVEditView : UIView
 
+@property(nonatomic,strong) UITableView *tableView;
+
+@property(nonatomic,strong) UIImageView *novelImage;
+
+@property(nonatomic,strong) UITextField *novelName;
+
+@property(nonatomic,strong) UITapGestureRecognizer *changeImage;
+
 @end

@@ -11,3 +11,8 @@
 @implementation NOVFindModel
 
 @end
+
+
+@implementation NOVAllFindModel
+
+@end

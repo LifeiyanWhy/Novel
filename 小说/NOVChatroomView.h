@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NOVChatroomView : UIView
+@interface NOVChatroomView : UIView<UITextViewDelegate>
+
+@property(nonatomic,strong) UITableView *tableView;
+
+@property(nonatomic,strong) UIView *inputView;
+
+@property(nonatomic,strong) UITextView *textView;
+
+@property(nonatomic,strong) UIButton *sendButton;
+
+//@property(nonatomic,strong) UIButton *expressionButton;
+
+- (void)textViewShow:(CGRect)keyboardframe;
+
+- (void)textViewHide:(CGRect)keyboardframe;
+
+- (void)sendmessageWithIndexPath:(NSIndexPath *)indexPath;
 
 @end

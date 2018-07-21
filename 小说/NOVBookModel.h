@@ -10,4 +10,15 @@
 
 @interface NOVBookModel : NSObject
 
+@property(nonatomic,strong) NSString *title;
+
+@property(nonatomic,strong) NSString *wordNumber;
+
+@property(nonatomic,strong) NSString *lastUpdateTime;
+
+@property(nonatomic,strong) NSString *joinNumber;
+
+@property(nonatomic,strong) NSString *content;
+
+-(instancetype)init;
 @end

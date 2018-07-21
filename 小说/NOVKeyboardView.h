@@ -10,4 +10,6 @@
 
 @interface NOVKeyboardView : UIView
 
+@property(nonatomic,strong) UIButton *hiddenKeyboard;
+
 @end

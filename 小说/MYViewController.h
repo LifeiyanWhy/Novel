@@ -10,4 +10,6 @@
 
 @interface MYViewController : UIViewController
 
+@property(nonatomic,strong) UIAlertController *actionController;
+
 @end

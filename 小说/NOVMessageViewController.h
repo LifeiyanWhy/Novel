@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class NOVMessageView;
+
 @interface NOVMessageViewController : UIViewController
+
+@property(nonatomic,strong) NOVMessageView *messageView;
 
 @end

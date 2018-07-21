@@ -10,4 +10,10 @@
 
 @interface NOVWriteTextView : UITextView
 
+@property(nonatomic,strong) UITextView *titleTextView;
+
+@property(nonatomic,strong) UILabel *chapterLabel;
+
+@property(nonatomic,strong) UITextView *contentTextView;
+
 @end

@@ -10,4 +10,12 @@
 
 @interface NOVSignupView : UIView
 
+@property(nonatomic,strong) UITextField *accountTextField;
+
+@property(nonatomic,strong) UIButton *verifyeButton;
+
+@property(nonatomic,strong) UITextField *verifyTextfield;
+
+@property(nonatomic,strong) UIButton *nextButton;
+
 @end

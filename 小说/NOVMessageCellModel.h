@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIImage+AFNetworking.h>
 
 @interface NOVMessageCellModel : NSObject
+
+@property(nonatomic,strong) NSString *name;
+
+@property(nonatomic,strong) NSString *messageContent;
+
+@property(nonatomic,strong) NSString *timeContent;
+
+@property(nonatomic,strong) NSString *rightContent;
+
+@property(nonatomic,assign) CGFloat cellheight;
+
+-(instancetype)init;
 
 @end

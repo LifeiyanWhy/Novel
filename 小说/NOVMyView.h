@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NOVMyView : UIView
+@class NOVMyheadView;
+
+@interface NOVMyView : UIView<UITableViewDelegate,UITableViewDataSource>
+
+@property(nonatomic,strong) UIButton *myInformationButton;
+
+@property(nonatomic,strong) UIButton *myfootprintButton;
+
+@property(nonatomic,strong) UITableView *tableView;
+
+@property(nonatomic,strong) UISwitch *lightSwitch;
+
+@property(nonatomic,strong) NOVMyheadView *headview;
 
 @end
+

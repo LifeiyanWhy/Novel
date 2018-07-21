@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class NOVMystartModel;
+
+typedef void(^novelTitleBlock)(NOVMystartModel *model);
+
 @interface NOVEditViewController : UIViewController
+
+@property(nonatomic,copy) novelTitleBlock novelTitleBlock;
 
 @end

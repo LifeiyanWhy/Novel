@@ -10,4 +10,6 @@
 
 @interface SJBottomView : UIView
 
+@property(nonatomic,strong) UITableView *tableView;
+
 @end

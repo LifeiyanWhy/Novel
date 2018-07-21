@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class NOVReadEditVIew;
+
 @interface NOVReadNovelView : UIView
+
+@property(nonatomic,strong) UILabel *contentLabel;
+
+@property(nonatomic,strong) UIButton *midButton;
+
+- (void)setMenu:(NOVReadEditVIew *)view;
 
 @end

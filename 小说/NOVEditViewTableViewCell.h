@@ -10,4 +10,8 @@
 
 @interface NOVEditViewTableViewCell : UITableViewCell
 
+@property(nonatomic,strong) UILabel *leftLabel;
+
+@property(nonatomic,assign) NSInteger enumNumber;
+
 @end

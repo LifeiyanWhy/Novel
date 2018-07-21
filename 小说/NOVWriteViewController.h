@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^publishNovelBlock)(NSString *title,NSString *content);
+
 @interface NOVWriteViewController : UIViewController
+
+@property(nonatomic,strong)  publishNovelBlock publishNovelBlock;
 
 @end

@@ -7,7 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface NOVSelectPhotoManager : NSObject
+@protocol NOVSelectPhotoManagerDeleagte <NSObject>
+
+@optional
+
+-(void)changeImageWithImage:(UIImage *)image;
+
+@end
+
+@interface NOVSelectPhotoManager : NSObject<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+
+@property(nonatomic,weak) id<NOVSelectPhotoManagerDeleagte> deleagte;
+
+-(instancetype)initWithViewController:(UIViewController *)viewController;
+
+
+//从相册中选取
+-(void)selectImageWithAlbum;
+
+//拍照
+-(void)selectImageWithCamera;
 
 @end

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "59869FE90BBC4F23AAA3F1C157092756C086363D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "59869FE90BBC4F23AAA3F1C157092756C086363D" : 9223372036854775807,
+    "B572ACEFEE1427633E995298212D48FA789BB067" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C5489307-8FE3-43B0-9128-BB1D378DE5EE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "59869FE90BBC4F23AAA3F1C157092756C086363D" : "%E5%B0%8F%E8%AF%B4\/",
+    "B572ACEFEE1427633E995298212D48FA789BB067" : "news\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "小说",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "小说.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LifeiyanWhy\/Novel.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "59869FE90BBC4F23AAA3F1C157092756C086363D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/LifeiyanWhy\/news.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B572ACEFEE1427633E995298212D48FA789BB067"
+    }
+  ]
+}

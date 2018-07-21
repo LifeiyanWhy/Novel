@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class NOVReadNovelView;
+
 @interface NOVReadPageViewController : UIViewController
 
+@property(nonatomic,strong) NOVReadNovelView *readNovelView;
+
 @end
+

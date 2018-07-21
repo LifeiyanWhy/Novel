@@ -8,6 +8,29 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NOVChatroomTableViewCell : UITableViewCell
+@protocol  NOVChatroomTableViewCellDelegate <NSObject>
+
+@optional
+
+- (void)touchMessageLabel;
+
+- (void)touchBlankView;
+
+@end
+
+@interface NOVChatroomTableViewCell : UITableViewCell<UIGestureRecognizerDelegate>
+
+@property(nonatomic,strong) id<NOVChatroomTableViewCellDelegate> delegate;
+
+//头像
+@property(nonatomic,strong) UIImageView *myImage;
+
+//聊天气泡
+@property(nonatomic,strong) UIImageView *chatBackgroundImage;
+
+//文本框
+@property(nonatomic,strong) UILabel *label;
+
+- (void)makeCellWithImageUrl:(NSString *)imageUrl message:(NSString *)message;
 
 @end

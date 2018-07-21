@@ -7,7 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SJBottomView.h"
+
+@class NOVView;
 
 @interface SJView : UIView
+
+@property(nonatomic,strong) NOVView *headView;
+
+@property(nonatomic,strong) UIScrollView *scrollView;
+
+@property(nonatomic,strong) SJBottomView *collectionView;
+
+@property(nonatomic,strong) SJBottomView *startView;
+
+@property(nonatomic,strong) SJBottomView *joinView;
+
+@property(nonatomic,strong) SJBottomView *currentView;
+
+//我要发起
+@property(nonatomic,strong) UIButton *startButton;
+
+-(void)viewResponseWhenTouchButton:(UIButton *)button;
 
 @end

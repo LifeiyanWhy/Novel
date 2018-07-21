@@ -9,5 +9,16 @@
 #import "NOVBookModel.h"
 
 @implementation NOVBookModel
-
+-(instancetype)init{
+    _title = @"标题...";
+    
+    _wordNumber = @"字数:x万 |已更新至:xxxx";
+    
+    _lastUpdateTime = @"最后更新时间:2018.04.10";
+    
+    _joinNumber = @"参与人数:10";
+    
+    _content = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    return self;
+}
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NOVFindModel.h"
 
 @interface NOVReadNovelViewController : UIViewController
+
+@property(nonatomic,strong) NOVFindModel *novelModel; //要阅读的小说信息
 
 @end

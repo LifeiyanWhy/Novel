@@ -7,6 +7,8 @@
 //
 
 #import "NOVReadPageViewController.h"
+#import "NOVReadNovelView.h"
+
 
 @interface NOVReadPageViewController ()
 
@@ -14,10 +16,23 @@
 
 @implementation NOVReadPageViewController
 
+-(instancetype)init{
+    self = [super init];
+    if (self) {
+        self.view.backgroundColor = [UIColor whiteColor];
+        _readNovelView = [[NOVReadNovelView alloc] init];
+        _readNovelView.frame = self.view.frame;
+        [self.view addSubview:_readNovelView];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

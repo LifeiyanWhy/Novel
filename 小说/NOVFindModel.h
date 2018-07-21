@@ -10,4 +10,20 @@
 
 @interface NOVFindModel : JSONModel
 
+@property(nonatomic,assign) NSInteger bookId;
+
+@property(nonatomic,strong) NSString *bookName;
+
+@property(nonatomic,strong) NSString *content;
+
+@property(nonatomic,assign) int writeNum;
+
+@end
+
+@interface NOVAllFindModel : JSONModel
+
+@property(nonatomic,assign) int status;
+
+@property(nonatomic,strong) NSArray<NOVFindModel *>* data;
+
 @end

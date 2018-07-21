@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_OPTIONS(NSInteger, NOVObtainListType){   //获取列表的类型
+    NOVObtainBookListRecommend = 1, //今日推荐
+    NOVObtainBookListRanking,    //排行榜
+};
+
+typedef void(^succeedBlock)(id responseObject);
+
+typedef void(^failBlock)(NSError*  error);
+
 @interface NOVObtainBookList : NSObject
+
+-(void)obtainBookListWithType:(NOVObtainListType)listType succeed:(succeedBlock)succeedBlock fail:(failBlock)failBlock;
 
 @end
