@@ -44,7 +44,7 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    NSLog(@"=====%@",info);
+//    NSLog(@"=====%@",info);
     UIImage *image = info[@"UIImagePickerControllerEditedImage"];
     if (!image) {
         image = info[@"UIImagePickerControllerOriginalImage"];

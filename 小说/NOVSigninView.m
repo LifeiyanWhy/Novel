@@ -78,6 +78,7 @@
         make.left.and.right.equalTo(_accountTextField);
     }];
     _passwardTextField.placeholder = @"请输入密码";
+    _passwardTextField.secureTextEntry = YES;
     [self setTextField:_passwardTextField];
     
     _signinButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.65 blue:0.6 alpha:1.00];
@@ -113,7 +114,8 @@
 }
 
 - (void)setTextField:(UITextField *)textField{
-    textField.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.00];
+    textField.backgroundColor = [UIColor clearColor];
+    [textField setFont:[UIFont systemFontOfSize:15]];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

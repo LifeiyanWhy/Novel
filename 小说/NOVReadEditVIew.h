@@ -25,11 +25,12 @@
 @property(nonatomic,strong) UIButton *followButton;
 @property(nonatomic,strong) UIButton *commentButton;
 
-//- (void)displayMenu;
-//- (void)hideMenu;
 
 - (void)touchRightButtonCollection:(BOOL)collection follow:(BOOL)follow;
 
 - (void)collectionButtonChange:(UIButton *)button;
 - (void)followButtonChange:(UIButton *)button;
+
+- (void)hiddenMenu;
+- (void)displayMenu:(UIView *)view;
 @end

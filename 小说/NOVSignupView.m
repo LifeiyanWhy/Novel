@@ -99,6 +99,7 @@
 
 - (void)setTextField:(UITextField *)textField{
     textField.backgroundColor = [UIColor clearColor];
+    [textField setFont:[UIFont systemFontOfSize:15]];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

@@ -6,13 +6,13 @@
 //  Copyright © 2018年 李飞艳. All rights reserved.
 //
 
-#import "NOVFindModel.h"
+#import "NOVbookMessage.h"
 
-@implementation NOVFindModel
+@implementation NOVbookMessage
 
 @end
 
 
-@implementation NOVAllFindModel
+@implementation NOVAllBookMesssage
 
 @end

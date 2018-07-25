@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class NOVReadEditVIew;
+#import <CoreText/CoreText.h>
 
 @interface NOVReadNovelView : UIView
 
-@property(nonatomic,strong) UILabel *contentLabel;
-
-@property(nonatomic,strong) UIButton *midButton;
-
-- (void)setMenu:(NOVReadEditVIew *)view;
+@property(nonatomic,assign) CTFrameRef frameRef;
+@property(nonatomic,strong) NSString *content;
 
 @end

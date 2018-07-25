@@ -10,7 +10,7 @@
 #import "NOVFindView.h"
 #import "NOVFindTableViewCell.h"
 #import "NOVObtainBookList.h"
-#import "NOVFindModel.h"
+#import "NOVbookMessage.h"
 #import "NOVReadNovelViewController.h"
 
 #define tabBarHeight self.navigationController.tabBarController.tabBar.frame.size.height //控制器高度
@@ -56,13 +56,13 @@
     
     NOVObtainBookList *obtainBookList = [[NOVObtainBookList alloc] init];
     [obtainBookList obtainBookListWithType:NOVObtainBookListRecommend succeed:^(id responseObject) {
-        NOVAllFindModel *allFindModel = [[NOVAllFindModel alloc] initWithDictionary:responseObject error:nil];
+        NOVAllBookMesssage *allFindModel = [[NOVAllBookMesssage alloc] initWithDictionary:responseObject error:nil];
         NSMutableArray *array = [NSMutableArray arrayWithArray:allFindModel.data];
         for (int i = 0; i < array.count; i++) {
             [judge addObject:@NO];
-            [_bookArray addObject:[[NOVFindModel alloc] initWithDictionary:array[i] error:nil]];
-            NOVFindModel *model = [[NOVFindModel alloc] initWithDictionary:array[i] error:nil];
-            NSLog(@"name:%@ bookID:%ld",model.bookName,(long)model.bookId);
+            [_bookArray addObject:[[NOVbookMessage alloc] initWithDictionary:array[i] error:nil]];
+//            NOVbookMessage *model = [[NOVbookMessage alloc] initWithDictionary:array[i] error:nil];
+//            NSLog(@"name:%@ bookID:%ld",model.bookName,(long)model.bookId);
         }
         [_findView.todayPromotionView.tableView reloadData];
     } fail:^(NSError *error) {
@@ -88,7 +88,8 @@
 -(void)readNovel:(UIButton *)button{
     NOVReadNovelViewController *readNovelViewController = [[NOVReadNovelViewController alloc] init];
     //把点击作品的作品信息传给即将要进入的界面（小说阅读）
-    readNovelViewController.novelModel = _bookArray[button.tag];
+    readNovelViewController.bookMessage = _bookArray[button.tag];
+    readNovelViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:readNovelViewController animated:NO];
 }
 

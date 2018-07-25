@@ -105,7 +105,6 @@
     [manger.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     [manger GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject[@"data"]);
         NSArray *dataArray = responseObject[@"data"];
         NSMutableArray *followIdArray = [NSMutableArray array];
         for (NSDictionary *dict in dataArray) {

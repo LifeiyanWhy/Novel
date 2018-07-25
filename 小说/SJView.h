@@ -19,7 +19,7 @@
 
 @property(nonatomic,strong) SJBottomView *collectionView;
 
-@property(nonatomic,strong) SJBottomView *startView;
+@property(nonatomic,strong) SJBottomView *followView;
 
 @property(nonatomic,strong) SJBottomView *joinView;
 

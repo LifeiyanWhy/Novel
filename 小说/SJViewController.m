@@ -13,9 +13,9 @@
 #import "NOVBookTableViewCell.h"
 #import "NOVReadNovelViewController.h"
 #import "NOVMystartViewController.h"
+#import "NOVObtainBookshelfModel.h"
+#import "NOVbookMessage.h"
 
-//#import "NOVWriteViewController.h"
-//#import "NOVEditViewController.h"
 #define tabBarHeight self.navigationController.tabBarController.tabBar.frame.size.height //控制器高度
 
 @interface SJViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,NOVViewDelegate>
@@ -26,6 +26,7 @@
 
 @implementation SJViewController{
     BOOL touchTopButton;
+    NSMutableArray *followModelArray;
 }
 
 - (void)viewDidLoad {
@@ -36,20 +37,36 @@
     _sjview = [[SJView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - tabBarHeight)];
     [self.view addSubview:_sjview];
     _sjview.scrollView.delegate = self;
+    [_sjview.startButton addTarget:self action:@selector(fqStart) forControlEvents:UIControlEventTouchUpInside];
+    _sjview.headView.delegate = self;
     
     _sjview.collectionView.tableView.delegate = self;
     _sjview.collectionView.tableView.dataSource = self;
     [_sjview.collectionView.tableView registerClass:[NOVBookTableViewCell class] forCellReuseIdentifier:@"cell"];
-    [_sjview.startButton addTarget:self action:@selector(fqStart) forControlEvents:UIControlEventTouchUpInside];
-    _sjview.headView.delegate = self;
     
-    _sjview.startView.tableView.delegate = self;
-    _sjview.startView.tableView.dataSource = self;
-    [_sjview.startView.tableView registerClass:[NOVBookTableViewCell class] forCellReuseIdentifier:@"cell"];
+    _sjview.followView.tableView.delegate = self;
+    _sjview.followView.tableView.dataSource = self;
+    [_sjview.followView.tableView registerClass:[NOVBookTableViewCell class] forCellReuseIdentifier:@"cell"];
+    followModelArray = [NSMutableArray array];
     
     _sjview.joinView.tableView.delegate = self;
     _sjview.joinView.tableView.dataSource = self;
     [_sjview.joinView.tableView registerClass:[NOVBookTableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+    NOVObtainBookshelfModel *model = [[NOVObtainBookshelfModel alloc] init];
+    [model obtainFollowBookListSucceed:^(id  _Nullable responseObject) {
+        NOVAllBookMesssage *allFindModel = [[NOVAllBookMesssage alloc] initWithDictionary:responseObject error:nil];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:allFindModel.data];
+        for (int i = 0; i < array.count; i++) {
+            NOVbookMessage *model = [[NOVbookMessage alloc] initWithDictionary:array[i] error:nil];
+            [followModelArray addObject:model];
+            NSLog(@"name:%@ bookID:%ld",model.bookName,(long)model.bookId);
+        }
+        [_sjview.followView.tableView reloadData];
+    } failure:^(NSError * _Nonnull error) {
+        if (error.code == -1009) {
+        }
+    }];
 }
 
 -(void)touchRespone:(UIButton *)touchButton{
@@ -72,8 +89,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
     NOVBookTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    NOVBookModel *model = [[NOVBookModel alloc] init];
-    [cell updateCellModel:model];
+    [cell updateCellModel:followModelArray[indexPath.section]];
     return cell;
 }
 
@@ -82,7 +98,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return followModelArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -95,6 +111,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NOVReadNovelViewController *readNovelViewController = [[NOVReadNovelViewController alloc] init];
+    readNovelViewController.hidesBottomBarWhenPushed = YES;
+    readNovelViewController.bookMessage = followModelArray[indexPath.section];
     [self.navigationController pushViewController:readNovelViewController animated:NO];
 }
 

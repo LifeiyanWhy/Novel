@@ -14,7 +14,7 @@
 
 @property(nonatomic,strong) UILabel *nameLabel;
 
-@property(nonatomic,strong) UILabel *profileLabel;
+@property(nonatomic,strong) UIButton *profileButton;
 
 @property(nonatomic,strong) UIButton *myworkButton;
 

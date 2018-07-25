@@ -8,7 +8,8 @@
 
 #import "NOVReadPageViewController.h"
 #import "NOVReadNovelView.h"
-
+#import "NOVReadConfig.h"
+#import "NOVReadParser.h"
 
 @interface NOVReadPageViewController ()
 
@@ -16,23 +17,33 @@
 
 @implementation NOVReadPageViewController
 
--(instancetype)init{
-    self = [super init];
-    if (self) {
-        self.view.backgroundColor = [UIColor whiteColor];
-        _readNovelView = [[NOVReadNovelView alloc] init];
-        _readNovelView.frame = self.view.frame;
-        [self.view addSubview:_readNovelView];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"novelBackground.png"]];
+    [self.view addSubview:self.readNovelView];
 }
 
+-(NOVReadNovelView *)readNovelView{
+    if (!_readNovelView) {
+        _readNovelView = [[NOVReadNovelView alloc] initWithFrame:CGRectMake(20, 40, self.view.frame.size.width-40, self.view.frame.size.height - 80)];
+        _readNovelView.backgroundColor = [UIColor clearColor];
+        NOVReadConfig *config = [NOVReadConfig shareInstance];
+        _readNovelView.frameRef = [NOVReadParser loadParserWithContent:_content config:config bounds:CGRectMake(0,0, _readNovelView.frame.size.width, _readNovelView.frame.size.height)];
+        _readNovelView.content = _content;
+    }
+    return _readNovelView;
+}
 
+-(void)setBookContent:(NSString *)content{
+    _content = content;
+    [self readNovelView];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

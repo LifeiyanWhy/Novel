@@ -26,8 +26,8 @@
         _nameLabel = [[UILabel alloc] init];
         [self addSubview:_nameLabel];
         
-        _profileLabel = [[UILabel alloc] init];
-        [self addSubview:_profileLabel];
+        _profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:_profileButton];
         
         _myworkButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:_myworkButton];
@@ -59,22 +59,21 @@
         make.width.equalTo(self).multipliedBy(0.3);
         make.centerX.equalTo(self);
     }];
-    _nameLabel.text = @"劝你善良";
+    _nameLabel.text = @"用户名";
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.font = [UIFont systemFontOfSize:16];
     
-    [_profileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_profileButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_nameLabel.mas_bottom);
         make.height.equalTo(_nameLabel);
         make.width.equalTo(self).multipliedBy(0.5);
         make.centerX.equalTo(self);
     }];
-    _profileLabel.text = @"简介:新时代优秀大学生";
-    _profileLabel.textColor = [UIColor whiteColor];
-    _profileLabel.textAlignment = NSTextAlignmentCenter;
-    _profileLabel.font = [UIFont systemFontOfSize:12];
-    
+    [_profileButton setTitle:@"简介:暂无介绍" forState:UIControlStateNormal];
+    [_profileButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _profileButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_profileButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
     
     [_myworkButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(viewheight*0.35);

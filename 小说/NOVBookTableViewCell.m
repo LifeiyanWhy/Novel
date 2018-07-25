@@ -8,7 +8,7 @@
 
 #import "NOVBookTableViewCell.h"
 #import "Masonry.h"
-#import "NOVBookModel.h"
+#import "NOVbookMessage.h"
 
 @implementation NOVBookTableViewCell
 
@@ -32,9 +32,6 @@
         
         _contentLabel = [[UILabel alloc] init];
         [self addSubview:_contentLabel];
-        
-//        _writeButton = [[UIButton alloc] init];
-//        [self addSubview:_writeButton];
     }
     return self;
 }
@@ -110,20 +107,6 @@
     _contentLabel.numberOfLines = 0;
     [_contentLabel setFont:[UIFont systemFontOfSize:12]];
     [_contentLabel setTextColor:[UIColor grayColor]];
-
-//    [_writeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_titleLabel);
-//        make.height.equalTo(_titleLabel);
-//        make.right.equalTo(self.mas_right).offset(self.frame.size.height*0.05*-1);
-//        make.width.equalTo(self).multipliedBy(0.16f);
-//    }];
-//    _writeButton.layer.cornerRadius = 5;
-//    _writeButton.layer.masksToBounds = YES;
-//    [_writeButton.layer setBorderWidth:2];
-//    [_writeButton.layer setBorderColor:[UIColor colorWithRed:0.38 green:0.66 blue:0.62 alpha:1.00].CGColor];
-//    [_writeButton setTitle:@"我要续写" forState:UIControlStateNormal];
-//    [_writeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//    _writeButton.titleLabel.font = [UIFont systemFontOfSize:10];
 }
 
 - (void)setFrame:(CGRect)frame{
@@ -134,12 +117,12 @@
     [super setFrame:frame];
 }
 
--(void)updateCellModel:(NOVBookModel *)model{
-    [_titleLabel setText:model.title];
-    [_wordNumberLabel setText:model.wordNumber];
-    [_lastUpdateTimeLablel setText:model.lastUpdateTime];
-    [_joinNumberLabel setText:model.joinNumber];
-    [_contentLabel setText:model.content];
+-(void)updateCellModel:(NOVbookMessage *)model{
+    [_titleLabel setText:model.bookName];//书名
+    [_wordNumberLabel setText:@"字数:x万"];
+    [_lastUpdateTimeLablel setText:@"2018.04.10"];
+    [_joinNumberLabel setText:[NSString stringWithFormat:@"已参与人数:%d",model.writeNum]];//参与人数
+    [_contentLabel setText:model.content];//简介
 }
 
 - (void)awakeFromNib {

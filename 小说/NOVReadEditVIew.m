@@ -13,7 +13,6 @@
     UIView *topView;
     UIView *bottomView;
     UIView *rightView;
-//    BOOL isRightView;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -235,6 +234,41 @@
     button.titleEdgeInsets = UIEdgeInsetsMake(0, -(buttonWidth-labelWidth-imageWidth)/2.0, 0, (buttonWidth-labelWidth-imageWidth)/2.0);
     
 }
+
+- (void)displayMenu:(UIView *)view{
+    self.hidden = NO;
+    [UIView animateWithDuration:0.4 animations:^{
+        [topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.height.mas_equalTo(64);
+            make.left.and.width.equalTo(self);
+        }];
+        [bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self);
+            make.height.mas_equalTo(64);
+            make.left.and.width.equalTo(self);
+        }];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)hiddenMenu{
+    if (self.rightButton.selected) {
+        [self touchRightButtonCollection:NO follow:NO];
+    }
+    [UIView animateWithDuration:0.4 animations:^{
+        [topView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(0);
+        }];
+        [bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(0);
+        }];
+    } completion:^(BOOL finished) {
+        self.hidden = YES;
+    }];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

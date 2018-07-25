@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 
-@class NOVFindModel;
+@class NOVbookMessage;
 
 @interface NOVFindTableViewCell : UITableViewCell
 
@@ -45,6 +45,6 @@
 
 -(void)cellClose;
 
-- (void)updateCellWithModel:(NOVFindModel*)model;
+- (void)updateCellWithModel:(NOVbookMessage*)model;
 
 @end

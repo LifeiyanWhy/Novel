@@ -53,7 +53,6 @@
     
     _writeView = [[NOVWriteView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.navigationController.navigationBar.bounds.size.height)];
     [self.view addSubview:_writeView];
-//    NSLog(@"%f",_writeView.frame.size.height);
     [_writeView.setupButton addTarget:self action:@selector(setupView) forControlEvents:UIControlEventTouchUpInside];
     _writeView.scrollView.delegate = self;
     _writeView.delagate = self;

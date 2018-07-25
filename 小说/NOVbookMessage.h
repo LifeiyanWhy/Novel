@@ -8,7 +8,7 @@
 
 #import <JSONModel/JSONModel.h>
 
-@interface NOVFindModel : JSONModel
+@interface NOVbookMessage : JSONModel
 
 @property(nonatomic,assign) NSInteger bookId;
 
@@ -20,10 +20,10 @@
 
 @end
 
-@interface NOVAllFindModel : JSONModel
+@interface NOVAllBookMesssage : JSONModel
 
 @property(nonatomic,assign) int status;
 
-@property(nonatomic,strong) NSArray<NOVFindModel *>* data;
+@property(nonatomic,strong) NSArray<NOVbookMessage *>* data;
 
 @end

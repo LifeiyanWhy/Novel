@@ -47,10 +47,10 @@
     _scrollView.directionalLockEnabled = YES;
     
     _collectionView = [[SJBottomView alloc] init];
-    _startView = [[SJBottomView alloc] init];
+    _followView = [[SJBottomView alloc] init];
     _joinView = [[SJBottomView alloc] init];
     
-    NSArray *array = [NSArray arrayWithObjects:_collectionView,_startView,_joinView, nil];
+    NSArray *array = [NSArray arrayWithObjects:_followView,_collectionView,_joinView, nil];
     for (int i = 0; i < array.count; i++) {
         [_scrollView addSubview:array[i]];
         [array[i] setFrame:CGRectMake(Width*i, 0, Width, Height - 64)];

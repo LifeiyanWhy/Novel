@@ -12,7 +12,10 @@
 
 @interface NOVReadPageViewController : UIViewController
 
+@property(nonatomic,strong) NSString *content;
 @property(nonatomic,strong) NOVReadNovelView *readNovelView;
+
+-(void)setBookContent:(NSString *)content;
 
 @end
 

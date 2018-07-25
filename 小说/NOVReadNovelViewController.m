@@ -8,73 +8,154 @@
 
 #import "NOVReadNovelViewController.h"
 #import "NOVReadPageViewController.h"
-#import "NOVReadNovelView.h"
 #import "NOVObatinBookContent.h"
 #import "NOVReadEditVIew.h"
 #import "NOVDataModel.h"
-#import <AFNetworking.h>
+#import "NOVChapterModel.h"
+#import "NOVbookMessage.h"
+#import "NOVRecordModel.h"
 
-@interface NOVReadNovelViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate>
-
+@interface NOVReadNovelViewController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIPageViewController *pageViewController;
-
-@property(nonatomic,strong) NSMutableArray *controllerArray;
-
+@property(nonatomic,strong) NOVReadPageViewController *readViewController;//当前阅读视图
 @property(nonatomic,strong) NOVReadEditVIew *readEditView;
-
 @end
 
 @implementation NOVReadNovelViewController{
     NOVObatinBookContent *obatinBookContent; //用于获取作品信息的类
-    NOVReadPageViewController *currentPageController;
+    NSInteger currentPage;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin] forKey: UIPageViewControllerOptionSpineLocationKey];
-    _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
-    _pageViewController.delegate = self;
-    _pageViewController.dataSource = self;
-    _pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    _pageViewController.doubleSided = NO;
-    [self addChildViewController:_pageViewController];
-    [self.view addSubview:_pageViewController.view];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"novelBackground.png"]];
+    [self addChildViewController:self.pageViewController];
+    [self.view addGestureRecognizer:({
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setMenu)];
+        tap.delegate = self;
+        tap;
+    })];
+    [self.view addSubview:self.readEditView];
+    currentPage = -1;
+    
+    if (_bookMessage) {
+        //根据bookId在本地查找是否已有阅读数据
+        _recordModel = [NOVRecordModel getRecordModelFromLocalWithBookId:_bookMessage.bookId];
+        if (!_recordModel) {
+            obatinBookContent = [[NOVObatinBookContent alloc] init];
+            [obatinBookContent getBookFirstChapterIdWithBookID:_bookMessage.bookId succeed:^(id responseObject) {
+                NSNumber *number = responseObject[@"data"][0][@"branchId"];
+                [self obtainChapterContentWithBranchId:[number integerValue]];
+            } fail:^(NSError *error) {
+            }];
+        }else{
+            //        NSLog(@"%ld",(long)_recordModel.page);
+            currentPage = _recordModel.page;
+            //将获取到的文本self示到当前controller上
+            [_pageViewController setViewControllers:@[[self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        }
+    }else{
+        NSLog(@"未获取到作品信息");
+    }
+}
 
-    _controllerArray = [NSMutableArray array];
-    obatinBookContent = [[NOVObatinBookContent alloc] init];
-    [obatinBookContent getBookFirstChapterIdWithBookID:_novelModel.bookId succeed:^(id responseObject) {
-        NSNumber *number = responseObject[@"data"][0][@"branchId"];
-        [obatinBookContent ObtainBookContenWithBranchId:[number integerValue] succeed:^(id responseObject) {
-            //将获取到的文本显示到当前controller上
-            currentPageController.readNovelView.contentLabel.text = responseObject[@"data"][@"content"];
-        } fail:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
+//获取章节内容
+-(void)obtainChapterContentWithBranchId:(NSInteger)branch{
+    [obatinBookContent ObtainBookContenWithBranchId:branch succeed:^(id responseObject) {
+        //当前阅读章节
+        [self.recordModel updateChapterModel:[[NOVChapterModel alloc] initWithDictionary:responseObject[@"data"] error:nil]];
+        currentPage = 0;
+        //将获取到的文本self示到当前controller上
+        [_pageViewController setViewControllers:@[[self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+
     } fail:^(NSError *error) {
         
+        NSLog(@"%@",error);
     }];
-    for (int i = 0; i < 3; i++) {
-        NOVReadPageViewController *pageController = [[NOVReadPageViewController alloc] init];
-        [_controllerArray addObject:pageController];
-        [pageController.readNovelView.midButton addTarget:self action:@selector(setMenu) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//翻页后加载页面
+-(NOVReadPageViewController *)readViewControllerWithChapter:(NOVChapterModel *)chapter position:(NSInteger)position{
+    _readViewController = [[NOVReadPageViewController alloc] init];
+    _readViewController.content = [_recordModel stringWithPage:position];
+    return _readViewController;
+}
+
+//设置翻页
+- (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
+    if (currentPage == -1) {
+        NSLog(@"未获取到作品信息");
+        return nil;
     }
-    //初始要显示的controller
-    currentPageController = _controllerArray[0];
-    [_pageViewController setViewControllers:@[_controllerArray[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    if (currentPage == 0) {
+        return nil;
+    }else{
+        currentPage--;
+        _recordModel.page = currentPage;
+    }
+//    NSLog(@"before%ld",(long)currentPage);
+    return [self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage];
+}
+
+- (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
+    if (currentPage == -1) {
+        NSLog(@"未获取到作品信息");
+        return nil;
+    }
+    if (currentPage == _recordModel.pageCount - 1) {
+        return nil;
+    }else{
+        currentPage++;
+        _recordModel.page = currentPage;
+    }
+//    NSLog(@"after%ld",(long)currentPage);
+    return [self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage];
+}
+
+-(UIPageViewController *)pageViewController
+{
+    if (!_pageViewController) {
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+        _pageViewController.delegate = self;
+        _pageViewController.dataSource = self;
+        _pageViewController.doubleSided = NO;
+        _pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [self.view addSubview:_pageViewController.view];
+    }
+    return _pageViewController;
+}
+
+- (NOVRecordModel *)recordModel{
+    if (!_recordModel) {
+        _recordModel = [[NOVRecordModel alloc] init];
+        _recordModel.bookId = _bookMessage.bookId;
+    }
+    return _recordModel;
 }
 
 -(void)setMenu{
-    NSLog(@"setMenu");
     if (!_readEditView) {
-        _readEditView = [[NOVReadEditVIew alloc] init];
+        [self readEditView];
     }
-    [currentPageController.readNovelView setMenu:_readEditView];
     [_readEditView.backButton addTarget:self action:@selector(touchBackButton) forControlEvents:UIControlEventTouchUpInside];
     [_readEditView.rightButton addTarget:self action:@selector(touchRightButton) forControlEvents:UIControlEventTouchUpInside];
     [_readEditView.collectionButton addTarget:self action:@selector(touchCollectionButton:) forControlEvents:UIControlEventTouchUpInside];
     [_readEditView.followButton addTarget:self action:@selector(touchFollowButton:) forControlEvents:UIControlEventTouchUpInside];
+    if (_readEditView.hidden) {
+        [_readEditView displayMenu:self.view];
+    }else{
+        [_readEditView hiddenMenu];
+    }
+}
+
+-(NOVReadEditVIew *)readEditView
+{
+    if (!_readEditView) {
+        _readEditView = [[NOVReadEditVIew alloc] initWithFrame:self.view.frame];
+        _readEditView.hidden = YES;
+    }
+    return _readEditView;
 }
 
 -(void)touchRightButton{
@@ -82,7 +163,7 @@
     NOVDataModel *datamodel = [NOVDataModel shareInstance];
     NSArray *array = [datamodel getFollowBookList];
     for (NSNumber *bookId in array) {
-        if(self.novelModel.bookId == [bookId integerValue]){
+        if(self.bookMessage.bookId == [bookId integerValue]){
             follow = YES;
         }
     }
@@ -96,13 +177,13 @@
 -(void)touchFollowButton:(UIButton *)button{
     NOVObatinBookContent *model = [[NOVObatinBookContent alloc] init];
     if (!button.selected) { //关注
-        [model followBookWithBookId:self.novelModel.bookId succeed:^(id responseObject) {
+        [model followBookWithBookId:self.bookMessage.bookId succeed:^(id responseObject) {
             NSLog(@"%@",responseObject[@"message"]);
             //更新本地存储的关注列表
             NOVDataModel *datamodel = [NOVDataModel shareInstance];
             NSArray *followArray = [datamodel getFollowBookList];
             NSMutableArray *array = [NSMutableArray arrayWithArray:followArray];
-            [array addObject:[NSNumber numberWithInteger:self.novelModel.bookId]];
+            [array addObject:[NSNumber numberWithInteger:self.bookMessage.bookId]];
             [datamodel updateFollowBookListWithArray:array];
             
             [_readEditView followButtonChange:button];
@@ -110,62 +191,19 @@
             NSLog(@"%@",error);
         }];
     }else{  //取消关注
-        [model cancelFollowBookId:self.novelModel.bookId succeed:^(id responseObject) {
+        [model cancelFollowBookId:self.bookMessage.bookId succeed:^(id responseObject) {
             NSLog(@"%@",responseObject[@"message"]);
             //更新本地存储的关注列表
             NOVDataModel *datamodel = [NOVDataModel shareInstance];
             NSArray *followArray = [datamodel getFollowBookList];
             NSMutableArray *array = [NSMutableArray arrayWithArray:followArray];
-            [array removeObject:[NSNumber numberWithInteger:self.novelModel.bookId]];
+            [array removeObject:[NSNumber numberWithInteger:self.bookMessage.bookId]];
             [datamodel updateFollowBookListWithArray:array];
             
             [_readEditView followButtonChange:button];
         } fail:^(NSError *error) {
             NSLog(@"%@",error);
         }];
-    }
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (_readEditView && currentPageController.readNovelView.midButton.selected) {
-        [currentPageController.readNovelView setMenu:_readEditView];
-        currentPageController.readNovelView.midButton.selected = NO;
-    }
-}
-
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController{
-    return 3;
-}
-
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController{
-    return 0;
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
-    if (currentPageController.readNovelView.midButton.selected) {
-        return currentPageController;
-    }
-    int index = (int)[_controllerArray indexOfObject:viewController];
-    if (index == 2) {
-        currentPageController = _controllerArray[0];
-        return _controllerArray[0];
-    }else{
-        currentPageController = _controllerArray[index+1];
-        return _controllerArray[index+1];
-    }
-}
-
--(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
-    if (currentPageController.readNovelView.midButton.selected) {
-        return currentPageController;
-    }
-    int index = (int)[_controllerArray indexOfObject:viewController];
-    if (index == 0) {
-        currentPageController = _controllerArray[2];
-        return _controllerArray[2];
-    }else{
-        currentPageController = _controllerArray[index-1];
-        return _controllerArray[index-1];
     }
 }
 
@@ -178,6 +216,10 @@
 }
 
 -(void)touchBackButton{
+    if (_recordModel) {
+        NSLog(@"保存！");
+        [NOVRecordModel updateLocalRecordModel:_recordModel];//退出前存储本次阅读记录
+    }
     [self.navigationController popViewControllerAnimated:NO];
 }
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NOVBookModel.h"
+
+@class NOVFindModel;
 
 @interface NOVBookTableViewCell : UITableViewCell
 
@@ -23,8 +24,5 @@
 
 @property(nonatomic,strong) UILabel *contentLabel;
 
-//@property(nonatomic,strong) UIButton *writeButton;
-
-
--(void)updateCellModel:(NOVBookModel *)model;
+-(void)updateCellModel:(NOVFindModel *)model;
 @end

@@ -19,6 +19,7 @@
     _joinNumber = @"参与人数:10";
     
     _content = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    
     return self;
 }
 @end

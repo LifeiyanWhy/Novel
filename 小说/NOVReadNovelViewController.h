@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NOVFindModel.h"
+
+@class NOVbookMessage;
+//@class NOVChapterModel;
+@class NOVRecordModel;
 
 @interface NOVReadNovelViewController : UIViewController
-
-@property(nonatomic,strong) NOVFindModel *novelModel; //要阅读的小说信息
-
+@property(nonatomic,strong) NOVbookMessage *bookMessage; //要阅读的小说信息
+//@property(nonatomic,strong) NOVChapterModel *chapterModel;//当前阅读章节
+@property(nonatomic,strong) NOVRecordModel *recordModel;
 @end

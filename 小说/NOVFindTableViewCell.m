@@ -7,7 +7,7 @@
 //
 
 #import "NOVFindTableViewCell.h"
-#import "NOVFindModel.h"
+#import "NOVbookMessage.h"
 
 @implementation NOVFindTableViewCell
 
@@ -205,7 +205,7 @@
 }
 
 
-- (void)updateCellWithModel:(NOVFindModel*)model{
+- (void)updateCellWithModel:(NOVbookMessage*)model{
     _titleLabel.text = model.bookName;
     _contentLabel.text = model.content;
     _authorLabel.text = @"XXXX";

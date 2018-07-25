@@ -72,6 +72,7 @@
         make.left.and.right.equalTo(_usernameTextField);
     }];
     _passwardTextField.placeholder = @"请输入密码";
+    _passwardTextField.secureTextEntry = YES;
     [self setTextField:_passwardTextField];
     
     _inputPswdAgain.backgroundColor = [UIColor clearColor];
@@ -96,6 +97,7 @@
 
 - (void)setTextField:(UITextField *)textField{
     textField.backgroundColor = [UIColor clearColor];
+    [textField setFont:[UIFont systemFontOfSize:15]];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

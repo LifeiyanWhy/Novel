@@ -32,7 +32,7 @@
     [self.view addSubview:_myView];
 
     [_myView.headview.myImageButton addTarget:self action:@selector(changeMyimage) forControlEvents:UIControlEventTouchUpInside];
-    
+    [_myView.headview.profileButton addTarget:self action:@selector(editUserMessage) forControlEvents:UIControlEventTouchUpInside];
     
     _actionController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *photographAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -74,6 +74,10 @@
 -(void)changeImageWithImage:(UIImage *)image{
     NSLog(@"=====%@",image);
     [_myView.headview.myImageButton setImage:image forState:UIControlStateNormal];
+}
+
+-(void)editUserMessage{
+    
 }
 
 - (void)didReceiveMemoryWarning {
