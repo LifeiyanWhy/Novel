@@ -49,10 +49,6 @@
 
 -(void)layoutSubviews{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    self.layer.cornerRadius = 10;
-//    self.layer.masksToBounds = YES;
-//    [self.layer setBorderColor:[UIColor grayColor].CGColor];
-//    [self.layer setBorderWidth:1];
     
     self.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     self.layer.shadowOpacity = 0.8f;

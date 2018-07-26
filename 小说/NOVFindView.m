@@ -27,7 +27,7 @@
     self.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1.00];
     
     _headView = [[NOVView alloc] initWithFrame:CGRectMake(0, 0, Width * 0.75, Height * 0.11) titleArray:[NSArray arrayWithObjects:@"今日推介",@"排行榜",@"全部作品", nil]];
-    _headView.backgroundColor = [UIColor  colorWithRed:0.15 green:0.65 blue:0.60 alpha:1.00];
+    _headView.backgroundColor = SystemColor;
     [self addSubview:_headView];
     
     rightLabel = [[UILabel alloc] init];
@@ -37,22 +37,7 @@
         make.right.equalTo(self);
         make.top.and.bottom.equalTo(_headView);
     }];
-    rightLabel.backgroundColor = [UIColor colorWithRed:0.15 green:0.65 blue:0.60 alpha:1.00];
-    
-//    _myStartButton = [[UIButton alloc] init];
-//    [self addSubview:_myStartButton];
-//    [_myStartButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self).offset(-10);
-//        make.width.equalTo(self).multipliedBy(0.15f);
-//        make.bottom.equalTo(_headView).offset(-5);
-//        make.height.equalTo(_headView).multipliedBy(0.35f);
-//    }];
-//    [_myStartButton setTitle:@"我要发起" forState:UIControlStateNormal];
-//    [_myStartButton.titleLabel setFont:[UIFont systemFontOfSize:11]];
-//    [_myStartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    _myStartButton.layer.cornerRadius = 5;
-//    _myStartButton.layer.borderWidth = 1.5;
-//    _myStartButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    rightLabel.backgroundColor = SystemColor;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.frame.size.height*0.11, Width , Height*0.89)];
     [self addSubview:_scrollView];

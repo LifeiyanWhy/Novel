@@ -59,7 +59,7 @@
         make.width.equalTo(self).multipliedBy(0.3);
         make.centerX.equalTo(self);
     }];
-    _nameLabel.text = @"用户名";
+
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.font = [UIFont systemFontOfSize:16];
@@ -70,7 +70,7 @@
         make.width.equalTo(self).multipliedBy(0.5);
         make.centerX.equalTo(self);
     }];
-    [_profileButton setTitle:@"简介:暂无介绍" forState:UIControlStateNormal];
+    
     [_profileButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _profileButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_profileButton.titleLabel setFont:[UIFont systemFontOfSize:12]];

@@ -97,7 +97,7 @@
 -(void)obtainFollowList{
     NOVDataModel *datamodel = [NOVDataModel shareInstance];
     NSString *token = [NSString stringWithFormat:@"Bearer %@",[datamodel getToken]];
-    NSLog(@"token=%@",token);
+//    NSLog(@"token=%@",token);
     NSString *url = @"http://47.95.207.40/branch/user/book";
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -117,6 +117,25 @@
         NSLog(@"%@",dict);
     }];
 }
+
+//获取用户信息
+-(void)getUserMessageSuccess:(successBlock _Nullable )successBlock failure:(failBlock _Nullable )failBlock{
+    NOVDataModel *datamodel = [NOVDataModel shareInstance];
+    NSString *token = [NSString stringWithFormat:@"Bearer %@",[datamodel getToken]];
+    NSString *url = @"http://47.95.207.40/branch/me";
+    
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manger.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manger.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manger GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successBlock(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(error);
+    }];
+}
+
 @end
 
 

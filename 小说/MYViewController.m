@@ -10,6 +10,8 @@
 #import "NOVMyView.h"
 #import "NOVMyheadView.h"
 #import "NOVSelectPhotoManager.h"
+#import "NOVEditUserMessageViewController.h"
+#import "NOVPersonalMessage.h"
 
 @interface MYViewController ()<NOVSelectPhotoManagerDeleagte>
 
@@ -25,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
     _myView = [[NOVMyView alloc] initWithFrame:self.view.frame];
@@ -48,6 +50,7 @@
     [_actionController addAction:photographAction];
     [_actionController addAction:albumAction];
     [_actionController addAction:cancelAction];
+    
 }
 
 -(void)changeMyimage{
@@ -77,7 +80,14 @@
 }
 
 -(void)editUserMessage{
-    
+    NOVEditUserMessageViewController *editUserMessageViewController = [[NOVEditUserMessageViewController alloc] init];
+    editUserMessageViewController.hidesBottomBarWhenPushed = YES;
+    __block MYViewController *weakSelf = self;
+    editUserMessageViewController.userMessageBlock = ^(NOVUserMessage *userMessage) {
+        [weakSelf.myView.headview.profileButton setTitle:[NSString stringWithFormat:@"简介%@",userMessage.userMessage.signText] forState:UIControlStateNormal];
+        weakSelf.myView.headview.nameLabel.text = userMessage.simpleUserMessage.username;
+    };
+    [self.navigationController pushViewController:editUserMessageViewController animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

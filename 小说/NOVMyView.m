@@ -61,6 +61,9 @@
     _tableView.tableHeaderView = _headview;
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.bounces = NO;
+    
+    _headview.nameLabel.text = @"用户名";
+    [_headview.profileButton setTitle:@"简介:暂无介绍" forState:UIControlStateNormal];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

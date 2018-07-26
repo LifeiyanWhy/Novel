@@ -89,8 +89,6 @@
         make.centerX.equalTo(self);
     }];
     [_signinButton setTitle:@"登录" forState:UIControlStateNormal];
-//    _signinButton.layer.cornerRadius = 18;
-//    _signinButton.layer.masksToBounds = YES;
     [_signinButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
     
     [_signupButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,7 +124,7 @@
 - (void)drawRect:(CGRect)rect{
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
-    UIColor *color = [UIColor colorWithRed:0.15 green:0.65 blue:0.6 alpha:1.00];
+    UIColor *color = SystemColor;
     [color set];
     UIBezierPath *path = [UIBezierPath bezierPath];
     path.lineWidth = 5.0;
