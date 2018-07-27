@@ -51,10 +51,12 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [manager.requestSerializer setValue:@"Basic YnJhbmNoOnhpeW91M2c=" forHTTPHeaderField:@"Authorization"];
     [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [NOVDataModel updateLoginMessageAccount:account passward:password];
         NOVDataModel *datamodel = [NOVDataModel shareInstance];
         //将登录成功后获取到的token存储到沙盒中
         [datamodel updateToken:responseObject[@"access_token"] refreshToken:responseObject[@"refresh_token"]];
         [self updateToken];
+        
         successBlock(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        failBlock(error);
@@ -97,7 +99,6 @@
 -(void)obtainFollowList{
     NOVDataModel *datamodel = [NOVDataModel shareInstance];
     NSString *token = [NSString stringWithFormat:@"Bearer %@",[datamodel getToken]];
-//    NSLog(@"token=%@",token);
     NSString *url = @"http://47.95.207.40/branch/user/book";
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -130,6 +131,24 @@
     [manger.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     [manger GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successBlock(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failBlock(error);
+    }];
+}
+
++(void)changeUserSignText:(NSString *_Nonnull)signText success:(successBlock _Nullable )successBlock failure:(failBlock _Nullable )failBlock{
+    NOVDataModel *datamodel = [NOVDataModel shareInstance];
+    NSString *token = [NSString stringWithFormat:@"Bearer %@",[datamodel getToken]];
+    NSString *url = @"http://47.95.207.40/branch/me";
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manger.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manger.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    NSDictionary *parameters = @{
+                                 @"signText":signText
+                                };
+    [manger POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         successBlock(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failBlock(error);

@@ -39,6 +39,7 @@
 		C47571B2208B213E00AA2692 /* 眼睛.png in Resources */ = {isa = PBXBuildFile; fileRef = C47571AC208B213E00AA2692 /* 眼睛.png */; };
 		C47571B5208B273E00AA2692 /* 点点.png in Resources */ = {isa = PBXBuildFile; fileRef = C47571B4208B273E00AA2692 /* 点点.png */; };
 		C479FDC620CC2BC600F17CBC /* NOVDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C479FDC520CC2BC600F17CBC /* NOVDataModel.m */; };
+		C492AC76210AA2F5003E0CA3 /* NOVDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C492AC75210AA2F5003E0CA3 /* NOVDataBase.m */; };
 		C496037A209ADE7100ACBD28 /* NOVChatroomView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4960379209ADE7100ACBD28 /* NOVChatroomView.m */; };
 		C496037D209AF7B300ACBD28 /* NOVChatroomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C496037C209AF7B300ACBD28 /* NOVChatroomModel.m */; };
 		C4960380209B28B700ACBD28 /* 发送.png in Resources */ = {isa = PBXBuildFile; fileRef = C496037F209B28B700ACBD28 /* 发送.png */; };
@@ -201,6 +202,8 @@
 		C47571B4208B273E00AA2692 /* 点点.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "点点.png"; path = "../../../../Downloads/点点.png"; sourceTree = "<group>"; };
 		C479FDC420CC2BC600F17CBC /* NOVDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NOVDataModel.h; sourceTree = "<group>"; };
 		C479FDC520CC2BC600F17CBC /* NOVDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NOVDataModel.m; sourceTree = "<group>"; };
+		C492AC74210AA2F5003E0CA3 /* NOVDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NOVDataBase.h; sourceTree = "<group>"; };
+		C492AC75210AA2F5003E0CA3 /* NOVDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NOVDataBase.m; sourceTree = "<group>"; };
 		C4960378209ADE7100ACBD28 /* NOVChatroomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NOVChatroomView.h; sourceTree = "<group>"; };
 		C4960379209ADE7100ACBD28 /* NOVChatroomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NOVChatroomView.m; sourceTree = "<group>"; };
 		C496037B209AF7B300ACBD28 /* NOVChatroomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NOVChatroomModel.h; sourceTree = "<group>"; };
@@ -531,6 +534,23 @@
 			name = "作品编辑";
 			sourceTree = "<group>";
 		};
+		C492AC77210AA31D003E0CA3 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				C4CA78D1207D0375007357B4 /* NOVView.h */,
+				C4CA78D2207D0375007357B4 /* NOVView.m */,
+				C4D29B15208F6FE000020C8D /* NOVSetUpView.h */,
+				C4D29B16208F6FE000020C8D /* NOVSetUpView.m */,
+				C4C4732320AD7F4600E3E508 /* NOVLongpressCellView.h */,
+				C4C4732420AD7F4600E3E508 /* NOVLongpressCellView.m */,
+				C4E8994B20DBD28B00E65AF8 /* NOVKeyboardView.h */,
+				C4E8994C20DBD28B00E65AF8 /* NOVKeyboardView.m */,
+				C4B7CFE32103272C00C2F9BE /* NOVNetworkAnomalyView.h */,
+				C4B7CFE42103272C00C2F9BE /* NOVNetworkAnomalyView.m */,
+			);
+			name = VIew;
+			sourceTree = "<group>";
+		};
 		C4960375209ADDBC00ACBD28 /* NOVChatroom */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,7 +681,8 @@
 				C4C89074206BF64100BED312 /* 发现  */,
 				C4E1A9A3208891580070EF61 /* 消息 */,
 				C4C89073206BF63500BED312 /* 账户 */,
-				C4D9EBA1207FCDD500365B10 /* 共享 */,
+				C4D9EBA1207FCDD500365B10 /* 用户 */,
+				C492AC77210AA31D003E0CA3 /* VIew */,
 				C4C89075206BFA2E00BED312 /* 图片 */,
 				C4CE0944206D4D4400C9C8E7 /* Masonry */,
 				C4C8903F206BF5CD00BED312 /* Main.storyboard */,
@@ -953,23 +974,15 @@
 			name = "续写";
 			sourceTree = "<group>";
 		};
-		C4D9EBA1207FCDD500365B10 /* 共享 */ = {
+		C4D9EBA1207FCDD500365B10 /* 用户 */ = {
 			isa = PBXGroup;
 			children = (
 				C479FDC420CC2BC600F17CBC /* NOVDataModel.h */,
 				C479FDC520CC2BC600F17CBC /* NOVDataModel.m */,
-				C4CA78D1207D0375007357B4 /* NOVView.h */,
-				C4CA78D2207D0375007357B4 /* NOVView.m */,
-				C4D29B15208F6FE000020C8D /* NOVSetUpView.h */,
-				C4D29B16208F6FE000020C8D /* NOVSetUpView.m */,
-				C4C4732320AD7F4600E3E508 /* NOVLongpressCellView.h */,
-				C4C4732420AD7F4600E3E508 /* NOVLongpressCellView.m */,
-				C4E8994B20DBD28B00E65AF8 /* NOVKeyboardView.h */,
-				C4E8994C20DBD28B00E65AF8 /* NOVKeyboardView.m */,
-				C4B7CFE32103272C00C2F9BE /* NOVNetworkAnomalyView.h */,
-				C4B7CFE42103272C00C2F9BE /* NOVNetworkAnomalyView.m */,
+				C492AC74210AA2F5003E0CA3 /* NOVDataBase.h */,
+				C492AC75210AA2F5003E0CA3 /* NOVDataBase.m */,
 			);
-			name = "共享";
+			name = "用户";
 			sourceTree = "<group>";
 		};
 		C4DC9ADB2108A5790011A905 /* AccountController */ = {
@@ -1372,6 +1385,7 @@
 				C4CE0965206D4D4400C9C8E7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				C4E1A9A2208891500070EF61 /* NOVMessageViewController.m in Sources */,
 				C4D6298E210968FA00D5E283 /* NOVUserMessageTableViewCell.m in Sources */,
+				C492AC76210AA2F5003E0CA3 /* NOVDataBase.m in Sources */,
 				C442C99A20A1BE7D00F742E6 /* NOVMyheadView.m in Sources */,
 				C4B7CFE2210318A800C2F9BE /* NOVObtainBookshelfModel.m in Sources */,
 				C4E724B220A9CC4D00D22CB1 /* NOVDetailViewController.m in Sources */,

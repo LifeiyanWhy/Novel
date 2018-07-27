@@ -82,6 +82,11 @@
     if (CGColorEqualToColor(self.navigationItem.rightBarButtonItem.tintColor.CGColor,[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.00].CGColor)) {
         return;
     }
+    [NOVSignModel changeUserSignText:_editSignView.textView.text success:^(id  _Nullable responseObject) {
+        NSLog(@"succeed");
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"failure");
+    }];
     self.textsign(_editSignView.textView.text);
     [self.navigationController popViewControllerAnimated:NO];
 }

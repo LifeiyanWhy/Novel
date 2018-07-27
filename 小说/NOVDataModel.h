@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class NOVUserMessage;
 
 @interface NOVDataModel : NSObject
 
@@ -21,5 +22,10 @@
 -(void)updateFollowBookListWithArray:(NSMutableArray *)followBookList;
 //获取关注列表
 -(NSArray *)getFollowBookList;
-
+//存储登录信息
++(void)updateLoginMessageAccount:(NSString *)account passward:(NSString *)passward;
+//获取用户账号
++(NSString *)getUserAccount;
++(void)updateUserMessage:(NOVUserMessage *)userMessage;
++(NOVUserMessage *)getUserMessage;
 @end

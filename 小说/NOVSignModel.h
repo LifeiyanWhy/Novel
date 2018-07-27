@@ -23,5 +23,9 @@ typedef void(^failBlock)(NSError * _Nonnull error);
 //获取关注列表
 -(void)obtainFollowList;
 
+//获取用户信息
 -(void)getUserMessageSuccess:(successBlock _Nullable )successBlock failure:(failBlock _Nullable )failBlock;
+
++(void)changeUserSignText:(NSString *_Nonnull)signText success:(successBlock _Nullable )successBlock failure:(failBlock _Nullable )failBlock;
+
 @end

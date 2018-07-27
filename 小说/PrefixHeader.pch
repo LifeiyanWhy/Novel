@@ -18,6 +18,9 @@
 #ifdef __OBJC__
 
 #import "Masonry.h"
+#import "NOVDataBase.h"
+#import "NOVDataModel.h"
+#import "NOVSignModel.h"
 
 #define TopSpacing 40.0f
 #define BottomSpacing 40.0f

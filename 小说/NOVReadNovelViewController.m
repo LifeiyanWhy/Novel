@@ -63,7 +63,7 @@
 //获取章节内容
 -(void)obtainChapterContentWithBranchId:(NSInteger)branch{
     [obatinBookContent ObtainBookContenWithBranchId:branch succeed:^(id responseObject) {
-        //当前阅读章节
+//        //当前阅读章节
         [self.recordModel updateChapterModel:[[NOVChapterModel alloc] initWithDictionary:responseObject[@"data"] error:nil]];
         currentPage = 0;
         //将获取到的文本self示到当前controller上
@@ -94,7 +94,6 @@
         currentPage--;
         _recordModel.page = currentPage;
     }
-//    NSLog(@"before%ld",(long)currentPage);
     return [self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage];
 }
 
@@ -109,7 +108,6 @@
         currentPage++;
         _recordModel.page = currentPage;
     }
-//    NSLog(@"after%ld",(long)currentPage);
     return [self readViewControllerWithChapter:_recordModel.chapterModel position:currentPage];
 }
 
@@ -217,7 +215,7 @@
 
 -(void)touchBackButton{
     if (_recordModel) {
-        NSLog(@"保存！");
+//        NSLog(@"保存！");
         [NOVRecordModel updateLocalRecordModel:_recordModel];//退出前存储本次阅读记录
     }
     [self.navigationController popViewControllerAnimated:NO];

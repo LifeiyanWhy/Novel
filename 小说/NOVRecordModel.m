@@ -10,6 +10,7 @@
 #import "NOVChapterModel.h"
 #import "NOVReadParser.h"
 #import "NOVReadConfig.h"
+#import "NOVDataModel.h"
 
 @implementation NOVChapterReadModel
 
@@ -42,30 +43,17 @@
 }
 
 +(NOVRecordModel *)getRecordModelFromLocalWithBookId:(NSInteger)bookId{
-    NOVRecordModel *recordModel = [[NOVRecordModel alloc] init];
-    recordModel.bookId = bookId;
-    NSArray *array = [NOVRecordModel getRecordModel];
-    if (array != NULL) {
-        NSMutableArray *modelArray = [NSMutableArray array];
-        for (int i = 0; i < array.count; i++) {
-            NOVRecordModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:array[i]];
-            [modelArray addObject:model];
-        }
-//        NSLog(@"%lu",(unsigned long)modelArray.count);
-        for (NOVRecordModel *model in modelArray) {    //在本地找到了即将要阅读的书的浏览记录
-            if (model.bookId == recordModel.bookId) {
-                recordModel = model;
-//                NSLog(@"%ld",(long)model.page);
-                return recordModel;
-            }
-        }
+    NSString *account = [NOVDataModel getUserAccount];
+    NOVDataBase *dataBase = [NOVDataBase shareInstance];
+    NOVRecordModel *recordModel = [dataBase getUserReadRecordWithAccount:account bookId:bookId];
+    if (recordModel != NULL) {
+        return recordModel;
     }
     return NULL;
 }
 
 //当前阅读章节发生变化,更新pageArray
 -(void)updateChapterModel:(NOVChapterModel *)chapterModel{
-    NSLog(@"chapterChange");
     _chapterModel = chapterModel;
     [self pagingWithContent:_chapterModel.content bounds:CGRectMake(LeftSpacing, TopSpacing, [UIScreen mainScreen].bounds.size.width-LeftSpacing - RightSpacing,[UIScreen mainScreen].bounds.size.height - TopSpacing - BottomSpacing)];
     
@@ -75,38 +63,13 @@
     chapterReadModel.chapterNumber = _chapter;
     self.page = 0;
     [_chapterArray addObject:chapterReadModel];//添加到已阅读章节的数组中
-    [NOVRecordModel updateLocalRecordModel:self];//更新本地数据
 }
 
 +(void)updateLocalRecordModel:(NOVRecordModel *)recordModel{
-    NSMutableArray *recordModelArray = [NSMutableArray array];
-    NSArray *array = [self getRecordModel]; //取出原数据
-    BOOL exist = NO;
-    if (array) {
-        recordModelArray = [NSMutableArray arrayWithArray:array];
-        for (int i = 0; i < array.count; i++) {
-            NOVRecordModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:array[i]];
-            if (model.bookId == recordModel.bookId) {   //已经存在,更新阅读状态
-                [recordModelArray replaceObjectAtIndex:i withObject:[NSKeyedArchiver archivedDataWithRootObject:recordModel]];
-                exist = YES;
-                break;
-            }
-        }
-    }
-    if (!exist) {
-         [recordModelArray addObject:[NSKeyedArchiver archivedDataWithRootObject:recordModel]];//将要添加的数据归档加入数组
-    }
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:recordModelArray];//将添加后的数据归档
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"recordModelArray"];
-}
-
-+(NSArray *)getRecordModel{
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordModelArray"];
-    if (data) {
-        NSArray *modelArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        return modelArray;
-    }
-    return NULL;
+    NSString *account = [NOVDataModel getUserAccount];
+//    NSLog(@"account%@",account);
+    NOVDataBase *dataBase = [[NOVDataBase alloc] init];
+    [dataBase updateUserReadRecordWithUserAccount:account record:recordModel];
 }
 
 -(void)pagingWithContent:(NSString *)content bounds:(CGRect)bounds{
@@ -166,7 +129,7 @@
     CGPathRelease(path);
     CFRelease(frameSetter);
     _pageCount = _pageArray.count;
-    NSLog(@"pageCount%ld",(long)_pageCount);
+//    NSLog(@"pageCount%ld",(long)_pageCount);
 }
 
 //从当前阅读章节(_chapterModel.content)根据页码获取要显示的内容

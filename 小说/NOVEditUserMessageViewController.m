@@ -49,20 +49,20 @@
     cellModelArray = @[@[@"账号",@"用户名",@"简介",@"等级",@"经验值",@"手机号"],@[@"性别",@"所在地",@"学校",@"公司"]];
     defaultMessage = @[@"填写",@"填写",@"填写你的学校，发现校友",@"填写你的公司，发现同事"];
     
-    NOVSignModel *model = [[NOVSignModel alloc] init];
-    [model getUserMessageSuccess:^(id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
-        _userMessage = [[NOVUserMessage alloc] initWithDictionary:responseObject[@"data"] error:nil];
-        _userMessage.simpleUserMessage = [[NOVSimpleUseMessage alloc] initWithDictionary:responseObject[@"data"][@"simpleUserMessage"] error:nil];
-        _userMessage.userMessage = [[NOVPersonalMessage alloc] initWithDictionary:responseObject[@"data"][@"userMessage"] error:nil];
+//    NOVSignModel *model = [[NOVSignModel alloc] init];
+//    [model getUserMessageSuccess:^(id  _Nullable responseObject) {
+//        NSLog(@"%@",responseObject);
+//        _userMessage = [[NOVUserMessage alloc] initWithDictionary:responseObject[@"data"] error:nil];
+//        _userMessage.simpleUserMessage = [[NOVSimpleUseMessage alloc] initWithDictionary:responseObject[@"data"][@"simpleUserMessage"] error:nil];
+//        _userMessage.userMessage = [[NOVPersonalMessage alloc] initWithDictionary:responseObject[@"data"][@"userMessage"] error:nil];
         simpleUserMessageArray = [NSMutableArray arrayWithArray:@[_userMessage.simpleUserMessage.account,_userMessage.simpleUserMessage.username,_userMessage.userMessage.signText,[NSString stringWithFormat:@"Lv %@",_userMessage.userMessage.userGrade],_userMessage.userMessage.experience,_userMessage.simpleUserMessage.account]];
         if ([_userMessage.userMessage.signText  isEqual: @""]) {
             [simpleUserMessageArray replaceObjectAtIndex:2 withObject:@"一句话介绍自己"];
         }
         [_editMessageView.tableView reloadData];
-    } failure:^(NSError * _Nonnull error) {
-        NSLog(@"error");
-    }];
+//    } failure:^(NSError * _Nonnull error) {
+//        NSLog(@"error");
+//    }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

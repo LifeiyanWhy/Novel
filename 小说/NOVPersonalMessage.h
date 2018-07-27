@@ -8,7 +8,7 @@
 
 #import <JSONModel/JSONModel.h>
 
-@interface NOVPersonalMessage : JSONModel
+@interface NOVPersonalMessage : JSONModel<NSCoding>
 @property(nonatomic,strong) NSString <Optional>*signText;
 @property(nonatomic,assign) NSNumber *experience;
 @property(nonatomic,assign) NSNumber *userGrade;
@@ -18,17 +18,17 @@
 @property(nonatomic,strong) NSString <Optional>*company;
 @end
 
-@interface NOVSimpleUseMessage : JSONModel
+@interface NOVSimpleUseMessage : JSONModel<NSCoding>
 @property(nonatomic,strong) NSString *username;
 @property(nonatomic,strong) NSString *account;
 @end
 
-@interface NOVUserMessage : JSONModel
+@interface NOVUserMessage : JSONModel<NSCoding>
 @property(nonatomic,strong) NOVSimpleUseMessage *simpleUserMessage;
 @property(nonatomic,strong) NOVPersonalMessage *userMessage;
 @end
 
-@interface NOVObtainUserMessage : JSONModel
+@interface NOVObtainUserMessage : JSONModel<NSCoding>
 @property(nonatomic,strong) NOVUserMessage *data;
 @property(nonatomic,assign) NSInteger status;
 @end

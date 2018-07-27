@@ -12,13 +12,13 @@
 #import "NOVSelectPhotoManager.h"
 #import "NOVEditUserMessageViewController.h"
 #import "NOVPersonalMessage.h"
+#import "NOVSignModel.h"
+//#import "NOVDataModel.h"
 
 @interface MYViewController ()<NOVSelectPhotoManagerDeleagte>
-
 @property(nonatomic,strong) NOVSelectPhotoManager *photoManager;
-
 @property(nonatomic,strong) NOVMyView *myView;
-
+@property(nonatomic,strong) NOVUserMessage *userMessage;
 @end
 
 @implementation MYViewController
@@ -51,6 +51,19 @@
     [_actionController addAction:albumAction];
     [_actionController addAction:cancelAction];
     
+    NOVSignModel *signModel = [[NOVSignModel alloc] init];
+    [signModel getUserMessageSuccess:^(id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+        _userMessage = [[NOVUserMessage alloc] initWithDictionary:responseObject[@"data"] error:nil];
+        _userMessage.simpleUserMessage = [[NOVSimpleUseMessage alloc] initWithDictionary:responseObject[@"data"][@"simpleUserMessage"] error:nil];
+        _userMessage.userMessage = [[NOVPersonalMessage alloc] initWithDictionary:responseObject[@"data"][@"userMessage"] error:nil];
+        if (![_userMessage.userMessage.signText  isEqual: @""]) {
+            [self.myView.headview.profileButton setTitle:[NSString stringWithFormat:@"简介:%@",_userMessage.userMessage.signText] forState:UIControlStateNormal];
+        }
+        self.myView.headview.nameLabel.text = _userMessage.simpleUserMessage.username;
+        [NOVDataModel updateUserMessage:_userMessage];
+    } failure:^(NSError * _Nonnull error) {
+    }];
 }
 
 -(void)changeMyimage{
@@ -82,9 +95,10 @@
 -(void)editUserMessage{
     NOVEditUserMessageViewController *editUserMessageViewController = [[NOVEditUserMessageViewController alloc] init];
     editUserMessageViewController.hidesBottomBarWhenPushed = YES;
+    editUserMessageViewController.userMessage = _userMessage;
     __block MYViewController *weakSelf = self;
     editUserMessageViewController.userMessageBlock = ^(NOVUserMessage *userMessage) {
-        [weakSelf.myView.headview.profileButton setTitle:[NSString stringWithFormat:@"简介%@",userMessage.userMessage.signText] forState:UIControlStateNormal];
+        [weakSelf.myView.headview.profileButton setTitle:[NSString stringWithFormat:@"简介:%@",userMessage.userMessage.signText] forState:UIControlStateNormal];
         weakSelf.myView.headview.nameLabel.text = userMessage.simpleUserMessage.username;
     };
     [self.navigationController pushViewController:editUserMessageViewController animated:NO];
